@@ -123,11 +123,11 @@
             note.style.top = Math.random() * (board.clientHeight - 160) + "px";
             
             board.appendChild(note); // Adiciona o post-it ao board
-            addDragEvents(note); // Adiciona os eventos de arrastar e soltar
+            addDragEvents(note, textArea); // Adiciona os eventos de arrastar e soltar
         });
 
          // Função para adicionar eventos de arrastar e soltar nos post-its
-         function addDragEvents(element) {
+         function addDragEvents(element, textArea) {
             let offsetX, offsetY, isDragging = false;
 
             // Função para iniciar o arraste (mouse e toque)
@@ -164,6 +164,11 @@
                 isDragging = false;
                 element.style.zIndex = 1; // Retorna à posição normal
             }
+
+             // Desativa o toque quando está dentro da área de texto
+            textArea.addEventListener('touchstart', (e) =>{
+                e.stopPropagation();
+            })
 
             // Eventos para mouse
             element.addEventListener("mousedown", startDrag);
