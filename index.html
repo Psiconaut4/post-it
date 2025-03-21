@@ -83,6 +83,7 @@
             overflow: hidden;
             white-space: pre-wrap;
             outline: none; /* Remove a borda azul ao focar */
+            user-select: text;
         }
     </style>
 </head>
@@ -131,6 +132,8 @@
 
             // Função para iniciar o arraste (mouse e toque)
             function startDrag(e) {
+                if (textArea === document.activeElement) return; // Não arrasta se o post-it estiver em edição
+
                 isDragging = true;
                 
                 // Verifica se o evento é de toque ou de mouse
