@@ -125,30 +125,52 @@
             addDragEvents(note); // Adiciona os eventos de arrastar e soltar
         });
 
-        // Função para adicionar eventos de arrastar e soltar nos post-its
-        function addDragEvents(element) {
+         // Função para adicionar eventos de arrastar e soltar nos post-its
+         function addDragEvents(element) {
             let offsetX, offsetY, isDragging = false;
-            
-            // Evento de clique para iniciar o arraste
-            element.addEventListener("mousedown", (e) => {
+
+            // Função para iniciar o arraste (mouse e toque)
+            function startDrag(e) {
                 isDragging = true;
-                offsetX = e.clientX - element.offsetLeft;
-                offsetY = e.clientY - element.offsetTop;
+                
+                // Verifica se o evento é de toque ou de mouse
+                let clientX = e.clientX || e.touches[0].clientX;
+                let clientY = e.clientY || e.touches[0].clientY;
+
+                offsetX = clientX - element.offsetLeft;
+                offsetY = clientY - element.offsetTop;
                 element.style.zIndex = 1000; // Traz o post-it para frente
-            });
-            
-            // Evento de movimento do mouse para arrastar o post-it
-            document.addEventListener("mousemove", (e) => {
+
+                // Evita comportamento indesejado no mobile
+                e.preventDefault();
+            }
+
+            // Função para mover o post-it (mouse e toque)
+            function moveDrag(e) {
                 if (!isDragging) return;
-                element.style.left = e.clientX - offsetX + "px";
-                element.style.top = e.clientY - offsetY + "px";
-            });
-            
-            // Evento para soltar o post-it ao soltar o botão do mouse
-            document.addEventListener("mouseup", () => {
+
+                let clientX = e.clientX || e.touches[0].clientX;
+                let clientY = e.clientY || e.touches[0].clientY;
+
+                element.style.left = clientX - offsetX + "px";
+                element.style.top = clientY - offsetY + "px";
+            }
+
+            // Função para soltar o post-it (mouse e toque)
+            function stopDrag() {
                 isDragging = false;
                 element.style.zIndex = 1; // Retorna à posição normal
-            });
+            }
+
+            // Eventos para mouse
+            element.addEventListener("mousedown", startDrag);
+            document.addEventListener("mousemove", moveDrag);
+            document.addEventListener("mouseup", stopDrag);
+
+            // Eventos para toque (mobile)
+            element.addEventListener("touchstart", startDrag);
+            document.addEventListener("touchmove", moveDrag);
+            document.addEventListener("touchend", stopDrag);
         }
     </script>
 </body>
