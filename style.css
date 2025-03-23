@@ -1,0 +1,80 @@
+@charset "utf-8";
+/* Estilos gerais da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Área onde os post-its serão adicionados */
+#board {
+    width: 100%;
+    height: 90vh;
+    border: 2px dashed #ccc;
+    position: relative;
+    overflow: hidden;
+    background: white;
+}
+
+/* Estilos dos post-its */
+.post-it {
+    width: 150px;
+    height: 150px;
+    background: yellow;
+    position: absolute;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    cursor: grab;
+    user-select: none;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo quando o post-it está sendo arrastado */
+.post-it:active {
+    cursor: grabbing;
+}
+
+/* Botão para adicionar novos post-its */
+#addNote {
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: none;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    background: red;
+    color: white;
+}
+
+.text-area {
+    flex-grow: 1; /* Ocupa todo o espaço abaixo do botão */
+    padding: 25px 10px 10px; /* O topo empurra o texto para baixo */
+    overflow: hidden;
+    white-space: pre-wrap;
+    outline: none; /* Remove a borda azul ao focar */
+}
