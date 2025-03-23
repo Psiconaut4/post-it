@@ -1,4 +1,5 @@
-'use strict'
+'use strict';
+
  // Evento para adicionar um novo post-it ao clicar no botão
  document.getElementById("addNote").addEventListener("click", function() {
     const board = document.getElementById("board");
