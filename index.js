@@ -1,6 +1,6 @@
 'use strict';
 
-// Salvar os post-its no LocalStorage
+// Função para salvar os post-its no LocalStorage
 function saveNotes() {
     const notes = [];
     document.querySelectorAll('.post-it').forEach(note => {
@@ -16,6 +16,11 @@ function saveNotes() {
 
 // Função para carregar os post-its do LocalStorage
 function loadNotes() {
+    // Verifica se existe algo no LocalStorage e cria se não existir
+    if (!localStorage.getItem('notes')) {
+        localStorage.setItem('notes', JSON.stringify([])); // Inicializa com uma lista vazia
+    }
+    
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const board = document.getElementById("board");
     notes.forEach(noteData => {
