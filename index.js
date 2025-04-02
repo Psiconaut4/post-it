@@ -1,51 +1,96 @@
 'use strict';
 
- // Evento para adicionar um novo post-it ao clicar no botão
- document.getElementById("addNote").addEventListener("click", function() {
+// Função para salvar os post-its no LocalStorage
+function saveNotes() {
+    const notes = [];
+    document.querySelectorAll('.post-it').forEach(note => {
+        const textArea = note.querySelector('.text-area');
+        notes.push({
+            text: textArea.innerHTML,
+            left: note.style.left,
+            top: note.style.top
+        });
+    });
+    localStorage.setItem('notes', JSON.stringify(notes));
+}
+
+// Função para carregar os post-its do LocalStorage
+function loadNotes() {
+    const notes = JSON.parse(localStorage.getItem('notes')) || [];
     const board = document.getElementById("board");
-    const note = document.createElement("div"); // Cria um novo post-it
+    notes.forEach(noteData => {
+        const note = document.createElement("div");
+        note.classList.add("post-it");
+        
+        const closeButton = document.createElement("button");
+        closeButton.innerHTML = "X";
+        closeButton.classList.add("close-btn");
+        closeButton.onclick = function() {
+            board.removeChild(note);
+            saveNotes(); // Salva após remover
+        };
+        
+        const textArea = document.createElement("div");
+        textArea.classList.add("text-area");
+        textArea.contentEditable = "true";
+        textArea.innerHTML = noteData.text;
+        textArea.oninput = saveNotes; // Salva ao editar texto
+
+        note.appendChild(closeButton);
+        note.appendChild(textArea);
+        
+        note.style.left = noteData.left;
+        note.style.top = noteData.top;
+        
+        board.appendChild(note);
+        addDragEvents(note);
+    });
+}
+
+// Carrega os post-its ao carregar a página
+document.addEventListener("DOMContentLoaded", loadNotes);
+
+document.getElementById("addNote").addEventListener("click", function() {
+    const board = document.getElementById("board");
+    const note = document.createElement("div");
     note.classList.add("post-it");
 
-    // Cria o botão "X" para remover o post-it
     const closeButton = document.createElement("button");
     closeButton.innerHTML = "X";
     closeButton.classList.add("close-btn");
     closeButton.onclick = function() {
-        board.removeChild(note); // Remove o post-it ao clicar no botão
+        board.removeChild(note);
+        saveNotes(); // Salva após remover
     };
 
-    // Criando a área de texto separada
     const textArea = document.createElement("div");
     textArea.classList.add("text-area");
-    textArea.contentEditable = "true"; // Permite edição do texto
+    textArea.contentEditable = "true";
+    textArea.oninput = saveNotes; // Salva ao editar texto
 
-    // Adicionando os elementos dentro do post-it
-    note.appendChild(closeButton); 
+    note.appendChild(closeButton);
     note.appendChild(textArea);
     
-    // Posiciona o post-it em uma posição aleatória dentro do board
     note.style.left = Math.random() * (board.clientWidth - 160) + "px";
     note.style.top = Math.random() * (board.clientHeight - 160) + "px";
     
-    board.appendChild(note); // Adiciona o post-it ao board
-    addDragEvents(note); // Adiciona os eventos de arrastar e soltar
+    board.appendChild(note);
+    addDragEvents(note);
+    saveNotes(); // Salva após criar
 });
 
-// Função para adicionar eventos de arrastar e soltar nos post-its
 function addDragEvents(element) {
     let offsetX, offsetY, isDragging = false;
     
-    // Evento de clique para iniciar o arraste (mouse e toque)
     const startDrag = (e) => {
         isDragging = true;
         const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
         const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
         offsetX = clientX - element.offsetLeft;
         offsetY = clientY - element.offsetTop;
-        element.style.zIndex = 1000; // Traz o post-it para frente
+        element.style.zIndex = 1000;
     };
 
-    // Evento de movimento para arrastar o post-it (mouse e toque)
     const moveDrag = (e) => {
         if (!isDragging) return;
         const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
@@ -54,18 +99,16 @@ function addDragEvents(element) {
         element.style.top = clientY - offsetY + "px";
     };
 
-    // Evento para soltar o post-it (mouse e toque)
     const endDrag = () => {
         isDragging = false;
-        element.style.zIndex = 1; // Retorna à posição normal
+        element.style.zIndex = 1;
+        saveNotes(); // Salva ao terminar de arrastar
     };
 
-    // Adiciona eventos de mouse
     element.addEventListener("mousedown", startDrag);
     document.addEventListener("mousemove", moveDrag);
     document.addEventListener("mouseup", endDrag);
 
-    // Adiciona eventos de toque
     element.addEventListener("touchstart", startDrag);
     document.addEventListener("touchmove", moveDrag);
     document.addEventListener("touchend", endDrag);
