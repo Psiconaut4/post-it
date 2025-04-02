@@ -1,6 +1,6 @@
 'use strict';
 
-// Função para salvar os post-its no LocalStorage
+// Salvar os post-its no LocalStorage
 function saveNotes() {
     const notes = [];
     document.querySelectorAll('.post-it').forEach(note => {
