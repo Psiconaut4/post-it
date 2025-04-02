@@ -35,24 +35,38 @@
 function addDragEvents(element) {
     let offsetX, offsetY, isDragging = false;
     
-    // Evento de clique para iniciar o arraste
-    element.addEventListener("mousedown", (e) => {
+    // Evento de clique para iniciar o arraste (mouse e toque)
+    const startDrag = (e) => {
         isDragging = true;
-        offsetX = e.clientX - element.offsetLeft;
-        offsetY = e.clientY - element.offsetTop;
+        const clientX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === "touchstart" ? e.touches[0].clientY : e.clientY;
+        offsetX = clientX - element.offsetLeft;
+        offsetY = clientY - element.offsetTop;
         element.style.zIndex = 1000; // Traz o post-it para frente
-    });
-    
-    // Evento de movimento do mouse para arrastar o post-it
-    document.addEventListener("mousemove", (e) => {
+    };
+
+    // Evento de movimento para arrastar o post-it (mouse e toque)
+    const moveDrag = (e) => {
         if (!isDragging) return;
-        element.style.left = e.clientX - offsetX + "px";
-        element.style.top = e.clientY - offsetY + "px";
-    });
-    
-    // Evento para soltar o post-it ao soltar o botão do mouse
-    document.addEventListener("mouseup", () => {
+        const clientX = e.type === "touchmove" ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === "touchmove" ? e.touches[0].clientY : e.clientY;
+        element.style.left = clientX - offsetX + "px";
+        element.style.top = clientY - offsetY + "px";
+    };
+
+    // Evento para soltar o post-it (mouse e toque)
+    const endDrag = () => {
         isDragging = false;
         element.style.zIndex = 1; // Retorna à posição normal
-    });
+    };
+
+    // Adiciona eventos de mouse
+    element.addEventListener("mousedown", startDrag);
+    document.addEventListener("mousemove", moveDrag);
+    document.addEventListener("mouseup", endDrag);
+
+    // Adiciona eventos de toque
+    element.addEventListener("touchstart", startDrag);
+    document.addEventListener("touchmove", moveDrag);
+    document.addEventListener("touchend", endDrag);
 }
