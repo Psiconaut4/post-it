@@ -73,8 +73,9 @@ body {
 
 .text-area {
     flex-grow: 1; /* Ocupa todo o espaço abaixo do botão */
-    padding: 25px 10px 10px; /* O topo empurra o texto para baixo */
+    padding: 10px 10px 10px; /* O topo empurra o texto para baixo */
     overflow: hidden;
     white-space: pre-wrap;
+    margin: 15px 0px 0px 0px; /* Margem superior maior, laterais e inferior iguais ao post-it */
     outline: none; /* Remove a borda azul ao focar */
 }
