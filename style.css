@@ -71,6 +71,50 @@ body {
     color: white;
 }
 
+/* Estilo do botão de cores */
+.color-btn {
+    background-color: #eeeeee98;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 30px;
+    margin: 3px 37px 0px 3px;
+}
+
+/* Menu de cores escondido por padrão */
+.color-menu {
+    display: none;
+    position: absolute;
+    background-color: #504e4e;
+    border-radius: 4px;
+    padding: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+/* Exibir menu de cores ao ser visível */
+.color-menu.visible {
+    display: flex;
+    gap: 5px;
+}
+
+/* Estilo das opções de cores */
+.color-option {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%; /* Forma circular */
+    cursor: pointer;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.color-option:hover {
+    transform: scale(1.2); /* Efeito ao passar o mouse */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+
 .text-area {
     flex-grow: 1; /* Ocupa todo o espaço abaixo do botão */
     padding: 10px 10px 10px; /* O topo empurra o texto para baixo */
