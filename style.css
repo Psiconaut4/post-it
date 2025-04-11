@@ -47,6 +47,16 @@ body {
     border-radius: 5px;
 }
 
+#close-all-notes{
+    margin-bottom: 10px;
+    padding: 10px;
+    cursor: pointer;
+    background: #ff0000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
 .close-btn {
     position: absolute;
     top: 5px;

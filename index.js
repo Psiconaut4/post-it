@@ -124,5 +124,15 @@ function addDragEvents(element) {
     document.addEventListener("touchend", endDrag);
 }
 
+// Limpar Board com confirmação
+document.getElementById("close-all-notes").addEventListener("click", () => {
+    //Exibe caixa de confirmação
+    if (confirm("Você tem certeza que deseja limpar todos os post-its?")) {
+        const board = document.getElementById("board");
+        board.innerHTML = ""; // Limpa o quadro
+        localStorage.removeItem('notes'); // Remove os post-its do LocalStorage
+        }
+});
+
 // Carrega os post-its ao iniciar a página
 document.addEventListener("DOMContentLoaded", loadNotes);
