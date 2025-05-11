@@ -55,6 +55,7 @@ function createPostIt(data = {}) {
             } else {
                 textArea.style.color = "black"; // Altera a cor da fonte para preto
             }
+            colorMenu.classList.remove("visible"); // Fecha o menu
             saveNotes(); // Atualiza o LocalStorage
         };
         colorMenu.appendChild(colorOption);
