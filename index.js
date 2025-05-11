@@ -43,13 +43,18 @@ function createPostIt(data = {}) {
     colorMenu.classList.add("color-menu");
 
     // Adiciona as opções de cores ao menu
-    ["yellow", "pink", "lightblue", "lightgreen"].forEach(color => {
+    ["yellow", "pink", "lightblue", "lightgreen", "black"].forEach(color => {
         const colorOption = document.createElement("div");
         colorOption.classList.add("color-option");
         colorOption.style.backgroundColor = color;
         colorOption.onclick = function() {
             note.style.backgroundColor = color; // Altera a cor do post-it
-            colorMenu.classList.remove("visible"); // Fecha o menu após selecionar
+            // Fecha o menu após selecionar
+            if (color === "black") {
+                textArea.style.color = "white"; // Altera a cor da fonte para branco
+            } else {
+                textArea.style.color = "black"; // Altera a cor da fonte para preto
+            }
             saveNotes(); // Atualiza o LocalStorage
         };
         colorMenu.appendChild(colorOption);
