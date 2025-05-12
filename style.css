@@ -112,7 +112,7 @@ body {
 .color-option {
     width: 20px;
     height: 20px;
-    border-radius: 50%; /* Forma circular */
+    border-radius: 50%;
     cursor: pointer;
     border: 1px solid #ddd;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);

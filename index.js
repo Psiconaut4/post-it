@@ -65,6 +65,7 @@ function createPostIt(data = {}) {
     const textArea = document.createElement("div");
     textArea.classList.add("text-area");
     textArea.contentEditable = "true"; // Permite edição
+    textArea.spellcheck = false; // Desabilita verificação ortográfica
     textArea.innerHTML = data.text || ""; // Define texto, se disponível
     textArea.oninput = saveNotes; // Salva ao modificar texto
 
@@ -80,12 +81,27 @@ function createPostIt(data = {}) {
     note.appendChild(textArea);
     board.appendChild(note);
 
+
     addDragEvents(note); // Permite arrastar o post-it
 }
 
 // Carrega os post-its salvos no LocalStorage e recria os elementos na página.
 function loadNotes() {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+    const signatureNote = {
+        text: "...............................................................................................................................Developed by    OPsiconaut4",
+        left: "",
+        top: "",
+        color: "lightblue"
+    }
+
+    const hasSignature = notes.some( n=> n.text === signatureNote.text);
+    if (!hasSignature) {
+        notes.push(signatureNote);
+        localStorage.setItem('notes', JSON.stringify(notes)); // Atualiza o LocalStorage
+    }
+
     notes.forEach(noteData => createPostIt(noteData)); // Utiliza função reutilizável para criar post-its
 }
 
