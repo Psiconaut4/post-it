@@ -90,7 +90,7 @@ function loadNotes() {
     const notes = JSON.parse(localStorage.getItem('notes')) || [];
 
     const signatureNote = {
-        text: "...............................................................................................................................Developed by    OPsiconaut4",
+        text: `  (\\ /) \n  ( . .)♥ \n c(”)(”) developed by \n        oPsiconaut4`, 
         left: "",
         top: "",
         color: "lightblue"
