@@ -96,9 +96,18 @@ function loadNotes() {
         color: "lightblue"
     }
 
+    const aviso = {
+        text: "Agora estamos com domínio próprio! na url: <a href='https://postit.psiconaut4.com.br'>https://postit.psiconaut4.com.br</a>",
+        left: "",
+        top: "",
+        color: "pink"
+    }
+
+    const hasAviso = notes.some( n=> n.text === aviso.text);
     const hasSignature = notes.some( n=> n.text === signatureNote.text);
-    if (!hasSignature) {
+    if (!hasSignature && !hasAviso) {
         notes.push(signatureNote);
+        notes.push(aviso);
         localStorage.setItem('notes', JSON.stringify(notes)); // Atualiza o LocalStorage
     }
 
