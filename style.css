@@ -25,10 +25,9 @@ body {
     position: absolute;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
     cursor: grab;
-    user-select: none;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 /* Estilo quando o post-it está sendo arrastado */
@@ -128,7 +127,7 @@ body {
 .text-area {
     flex-grow: 1; /* Ocupa todo o espaço abaixo do botão */
     padding: 5px 10px 10px; /* O topo empurra o texto para baixo */
-    overflow: hidden;
+    overflow: auto;
     white-space: pre-wrap;
     margin: 5px 0px 0px 0px; /* Margem superior maior, laterais e inferior iguais ao post-it */
     outline: none; /* Remove a borda azul ao focar */
