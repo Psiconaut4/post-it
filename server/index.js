@@ -11,6 +11,6 @@ app.use(express.json()); // Para processar JSON via POST
 
 app.use('/api/auth', authRoutes);
 
-app.listen(3000, () => {
-  console.log('Servidor rodando em http://localhost:3000');
+app.listen(6969, () => {
+  console.log('Servidor rodando em http://localhost:6969');
 });
